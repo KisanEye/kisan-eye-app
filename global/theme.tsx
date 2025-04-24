@@ -1,67 +1,67 @@
-// theme.tsx
+// global/theme.tsx
 import { MD3LightTheme as DefaultTheme, configureFonts } from 'react-native-paper';
 import { useFonts } from 'expo-font';
 
-// Define font variants for Material Design 3 (MD3) with all Montserrat weights
+// Define font variants for Material Design 3 (MD3) with all Urdu fonts
 const fontConfig = {
   displayLarge: {
-    fontFamily: 'Montserrat-Black',
+    fontFamily: 'NotoNastaliqUrdu-Bold', // Using Bold font
     fontSize: 57,
   },
   displayMedium: {
-    fontFamily: 'Montserrat-ExtraBold',
+    fontFamily: 'NotoNastaliqUrdu-Bold',
     fontSize: 45,
   },
   displaySmall: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'NotoNastaliqUrdu-Medium', // Using Medium font for display
     fontSize: 36,
   },
   headlineLarge: {
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'NotoNastaliqUrdu-SemiBold', // Using SemiBold font
     fontSize: 32,
   },
   headlineMedium: {
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: 'NotoNastaliqUrdu-SemiBold',
     fontSize: 28,
   },
   headlineSmall: {
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'NotoNastaliqUrdu-Regular', // Regular font for smaller headlines
     fontSize: 24,
   },
   titleLarge: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'NotoNastaliqUrdu-Bold', // Bold for titles
     fontSize: 22,
   },
   titleMedium: {
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'NotoNastaliqUrdu-SemiBold',
     fontSize: 16,
   },
   titleSmall: {
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: 'NotoNastaliqUrdu-Medium',
     fontSize: 14,
   },
   bodyLarge: {
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'NotoNastaliqUrdu-Regular', // Regular font for body text
     fontSize: 16,
   },
   bodyMedium: {
-    fontFamily: 'Montserrat-Light',
+    fontFamily: 'NotoNastaliqUrdu-Regular',
     fontSize: 14,
   },
   bodySmall: {
-    fontFamily: 'Montserrat-Thin',
+    fontFamily: 'NotoNastaliqUrdu-Regular',
     fontSize: 12,
   },
   labelLarge: {
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'NotoNastaliqUrdu-SemiBold',
     fontSize: 14,
   },
   labelMedium: {
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'NotoNastaliqUrdu-Regular',
     fontSize: 12,
   },
   labelSmall: {
-    fontFamily: 'Montserrat-Light',
+    fontFamily: 'NotoNastaliqUrdu-Regular',
     fontSize: 11,
   },
 };
@@ -93,24 +93,10 @@ const theme = {
 // Add font loading hook directly in theme file
 export const useAppFonts = () => {
   const [fontsLoaded] = useFonts({
-    'Montserrat-Black': require('../assets/fonts/Montserrat-Black.ttf'),
-    'Montserrat-BlackItalic': require('../assets/fonts/Montserrat-BlackItalic.ttf'),
-    'Montserrat-Bold': require('../assets/fonts/Montserrat-Bold.ttf'),
-    'Montserrat-BoldItalic': require('../assets/fonts/Montserrat-BoldItalic.ttf'),
-    'Montserrat-ExtraBold': require('../assets/fonts/Montserrat-ExtraBold.ttf'),
-    'Montserrat-ExtraBoldItalic': require('../assets/fonts/Montserrat-ExtraBoldItalic.ttf'),
-    'Montserrat-ExtraLight': require('../assets/fonts/Montserrat-ExtraLight.ttf'),
-    'Montserrat-ExtraLightItalic': require('../assets/fonts/Montserrat-ExtraLightItalic.ttf'),
-    'Montserrat-Italic': require('../assets/fonts/Montserrat-Italic.ttf'),
-    'Montserrat-Light': require('../assets/fonts/Montserrat-Light.ttf'),
-    'Montserrat-LightItalic': require('../assets/fonts/Montserrat-LightItalic.ttf'),
-    'Montserrat-Medium': require('../assets/fonts/Montserrat-Medium.ttf'),
-    'Montserrat-MediumItalic': require('../assets/fonts/Montserrat-MediumItalic.ttf'),
-    'Montserrat-Regular': require('../assets/fonts/Montserrat-Regular.ttf'),
-    'Montserrat-SemiBold': require('../assets/fonts/Montserrat-SemiBold.ttf'),
-    'Montserrat-SemiBoldItalic': require('../assets/fonts/Montserrat-SemiBoldItalic.ttf'),
-    'Montserrat-Thin': require('../assets/fonts/Montserrat-Thin.ttf'),
-    'Montserrat-ThinItalic': require('../assets/fonts/Montserrat-ThinItalic.ttf'),
+    'NotoNastaliqUrdu-Bold': require('../assets/fonts/NotoNastaliqUrdu-Bold.ttf'),
+    'NotoNastaliqUrdu-Medium': require('../assets/fonts/NotoNastaliqUrdu-Medium.ttf'),
+    'NotoNastaliqUrdu-Regular': require('../assets/fonts/NotoNastaliqUrdu-Regular.ttf'),
+    'NotoNastaliqUrdu-SemiBold': require('../assets/fonts/NotoNastaliqUrdu-SemiBold.ttf'),
   });
   return fontsLoaded;
 };

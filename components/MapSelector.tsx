@@ -1,10 +1,10 @@
 // components/MapSelector.tsx
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Picker } from "@react-native-picker/picker";
-import { useTheme, Surface, IconButton } from "react-native-paper";
+import { Surface, IconButton } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+// Reimagined Map Selector with large easy-to-tap options instead of dropdown
 const MapSelector = ({ 
   selectedMap, 
   onMapChange 
@@ -12,59 +12,67 @@ const MapSelector = ({
   selectedMap: string, 
   onMapChange: (mapType: string) => void 
 }) => {
-  const { colors } = useTheme();
-
-  // Map type options with icons and descriptions
+  // Map type options with icons and descriptions in Urdu
   const mapTypes = [
     { 
       value: "NDVI", 
-      label: "NDVI Map", 
+      label: "این ڈی وی آئی نقشہ", 
       icon: "image-filter-hdr", 
-      description: "Shows crop health levels" 
+      description: "فصل کی صحت کا نقشہ", 
+      color: "#4CAF50" 
     },
     { 
       value: "Farm", 
-      label: "Regular Farm View", 
+      label: "معمولی کھیت منظر", 
       icon: "image", 
-      description: "Normal farm image" 
+      description: "عام کھیت کی تصویر",
+      color: "#5D8AA8" 
     }
   ];
 
   return (
     <Surface style={styles.container}>
       <View style={styles.headerContainer}>
-        <MaterialCommunityIcons name="map-legend" size={24} color="#40513B" />
-        <Text style={styles.headerText}>Map Selection</Text>
+        <Text style={styles.headerText}>نقشہ منتخب کریں</Text>
+        <MaterialCommunityIcons name="map-legend" size={28} color="#40513B" />
       </View>
       
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={selectedMap}
-          onValueChange={onMapChange}
-          style={[styles.picker, { color: "#40513B" }]}
-          dropdownIconColor="#40513B"
-          mode="dropdown"
-        >
-          {mapTypes.map((type) => (
-            <Picker.Item 
-              key={type.value} 
-              label={type.label} 
-              value={type.value} 
+      <View style={styles.optionsContainer}>
+        {mapTypes.map((type) => (
+          <TouchableOpacity
+            key={type.value}
+            style={[
+              styles.optionButton,
+              selectedMap === type.value && styles.selectedOption
+            ]}
+            onPress={() => onMapChange(type.value)}
+            activeOpacity={0.7}
+          >
+            <MaterialCommunityIcons 
+              name={type.icon} 
+              size={32} 
+              color={selectedMap === type.value ? "#FFFFFF" : type.color}
             />
-          ))}
-        </Picker>
+            <Text style={[
+              styles.optionLabel,
+              selectedMap === type.value && styles.selectedText
+            ]}>
+              {type.label}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
       
-      {/* Current selection info */}
+      {/* Description of selected map type */}
       <View style={styles.selectionInfo}>
+        <Text style={styles.selectionText}>
+          {mapTypes.find(type => type.value === selectedMap)?.description || "نقشہ دیکھیں"}
+        </Text>
         <MaterialCommunityIcons 
-          name={mapTypes.find(type => type.value === selectedMap)?.icon || "map"} 
-          size={22} 
+          name="information-outline" 
+          size={24} 
           color="#609966" 
         />
-        <Text style={styles.selectionText}>
-          {mapTypes.find(type => type.value === selectedMap)?.description || "View map data"}
-        </Text>
       </View>
     </Surface>
   );
@@ -73,7 +81,7 @@ const MapSelector = ({
 const styles = StyleSheet.create({
   container: {
     borderRadius: 12,
-    padding: 12,
+    padding: 16,
     marginVertical: 8,
     backgroundColor: "#F5F5F5",
     elevation: 2,
@@ -81,38 +89,60 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 8,
+    justifyContent: "flex-end", // Right align for RTL
+    marginBottom: 12,
   },
   headerText: {
-    fontFamily: "MontserratBold",
+    fontFamily: "NotoNastaliqUrdu-Bold",
+    fontSize: 20,
+    color: "#000000",
+    marginRight: 8, // Adjusted for RTL
+    textAlign: "right",
+  },
+  optionsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 8,
+    gap: 12,
+  },
+  optionButton: {
+    flex: 1,
+    borderWidth: 2,
+    borderColor: "#609966",
+    borderRadius: 12,
+    padding: 12,
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    flexDirection: "column",
+  },
+  selectedOption: {
+    backgroundColor: "#609966",
+    borderColor: "#40513B",
+  },
+  optionLabel: {
+    fontFamily: "NotoNastaliqUrdu-Medium",
     fontSize: 16,
     color: "#40513B",
-    marginLeft: 8,
+    marginTop: 8,
+    textAlign: "center",
   },
-  pickerContainer: {
-    borderWidth: 1,
-    borderColor: "#609966",
-    borderRadius: 8,
-    backgroundColor: "#FFFFFF",
-    marginVertical: 4,
-    overflow: "hidden",
-  },
-  picker: {
-    height: 50,
-    width: "100%",
-    fontFamily: "Montserrat",
+  selectedText: {
+    color: "#FFFFFF",
+    fontFamily: "NotoNastaliqUrdu-Bold",
   },
   selectionInfo: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 8,
+    justifyContent: "flex-end", // Right align for RTL
+    marginTop: 12,
     paddingHorizontal: 4,
   },
   selectionText: {
-    fontFamily: "Montserrat",
-    fontSize: 14,
+    fontFamily: "NotoNastaliqUrdu-Regular",
+    fontSize: 16,
     color: "#609966",
-    marginLeft: 8,
+    marginRight: 8, // Adjusted for RTL
+    textAlign: "right",
   }
 });
 
