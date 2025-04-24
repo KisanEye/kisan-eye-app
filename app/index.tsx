@@ -1,349 +1,249 @@
-// screens/HomeScreen.tsx
-import React, { useState } from "react";
-import { View, StyleSheet, Image, ScrollView, SafeAreaView, Dimensions } from "react-native";
-import { Text, Appbar, Button, Card, Avatar, Divider } from "react-native-paper";
+import React from "react";
+import { View, StyleSheet, SafeAreaView, Dimensions, Image } from "react-native";
+import { Text, Button, Avatar, Card, Surface } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import BatteryStatus from "../components/BatteryStatus";
-import MapSelector from "../components/MapSelector";
+import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
-// Get screen dimensions for better map sizing
-const screenWidth = Dimensions.get('window').width;
+const { width } = Dimensions.get("window");
 
 const HomeScreen = () => {
-  const [selectedMap, setSelectedMap] = useState("NDVI");
-  const [batteryPercentage, setBatteryPercentage] = useState(85);
-
-  const handleMapChange = (mapType: string) => {
-    setSelectedMap(mapType);
-  };
-
-  const renderMap = () => {
-    if (selectedMap === "NDVI") {
-      return (
-        <View style={styles.mapWrapper}>
-          <Image 
-            source={require("../assets/images/ndvi.jpg")} 
-            style={styles.mapImage}
-            resizeMode="contain"
-          />
-          <View style={styles.legendContainer}>
-            <Text style={styles.legendTitle}>Health Legend:</Text>
-            <View style={styles.legendRow}>
-              <View style={[styles.legendColor, { backgroundColor: '#ff0000' }]} />
-              <Text style={styles.legendText}>Poor Health</Text>
-            </View>
-            <View style={styles.legendRow}>
-              <View style={[styles.legendColor, { backgroundColor: '#ffff00' }]} />
-              <Text style={styles.legendText}>Fair Health</Text>
-            </View>
-            <View style={styles.legendRow}>
-              <View style={[styles.legendColor, { backgroundColor: '#00ff00' }]} />
-              <Text style={styles.legendText}>Good Health</Text>
-            </View>
-          </View>
-        </View>
-      );
-    }
-    return (
-      <View style={styles.mapWrapper}>
-        <Image 
-          source={require("../assets/images/farm.jpg")} 
-          style={styles.mapImage} 
-          resizeMode="contain"
-        />
-      </View>
-    );
-  };
+  const router = useRouter();
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      {/* Fixed App Header */}
-      <Appbar.Header style={styles.appbar}>
-        <Avatar.Image 
-          size={40} 
-          source={require("../assets/images/logo.png")} 
-          style={styles.logo}
-          backgroundColor="#609966"
-        />
-        <Appbar.Content 
-          title="KisanEye" 
-          titleStyle={styles.appbarTitle} 
-          subtitle="Farm Health Monitor" 
-          subtitleStyle={styles.appbarSubtitle}
-        />
-        <BatteryStatus batteryPercentage={batteryPercentage} />
-      </Appbar.Header>
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="light" />
+      
+      {/* Header */}
+      <Surface style={styles.header} elevation={4}>
+        <View style={styles.headerContent}>
+          <Avatar.Image 
+            size={52} 
+            source={require("../assets/images/logo.png")} 
+            style={styles.logo}
+          />
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>کسان آئی</Text>
+            <Text style={styles.subtitle}>کھیتوں کی صحت کا محافظ</Text>
+          </View>
+        </View>
+      </Surface>
 
-      <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
-        {/* Farm Status Overview */}
+      {/* Main Content */}
+      <View style={styles.content}>
+        {/* Farm Status Card */}
         <Card style={styles.statusCard}>
-          <Card.Title 
-            title="Farm Health Status" 
-            titleStyle={styles.cardTitle}
-            left={(props) => (
-              <Avatar.Icon 
-                {...props} 
-                icon="leaf" 
-                style={styles.cardIcon}
-                color="#EDF1D6" 
-              />
-            )}
-          />
-          <Card.Content style={styles.statusContent}>
-            <View style={styles.statusItem}>
-              <MaterialCommunityIcons name="water" size={24} color="#609966" />
-              <Text style={styles.statusText}>Moisture: Good</Text>
+          <Card.Content style={styles.statusCardContent}>
+            <View style={styles.statusTextContainer}>
+              <Text style={styles.statusLabel}>آپ کے کھیت کی حالت</Text>
+              <Text style={styles.statusValue}>اچھی</Text>
             </View>
-            <View style={styles.statusItem}>
-              <MaterialCommunityIcons name="white-balance-sunny" size={24} color="#609966" />
-              <Text style={styles.statusText}>Sun Exposure: Optimal</Text>
+            <View style={styles.statusIconContainer}>
+              <MaterialCommunityIcons name="leaf" size={64} color="#4CAF50" />
             </View>
-            <View style={styles.statusItem}>
-              <MaterialCommunityIcons name="bug" size={24} color="#609966" />
-              <Text style={styles.statusText}>Pest Risk: Low</Text>
-            </View>
+          </Card.Content>
+          <Card.Content style={styles.lastUpdatedContainer}>
+            <MaterialCommunityIcons name="clock-outline" size={18} color="#666" />
+            <Text style={styles.lastUpdatedText}>آخری اپڈیٹ: آج، صبح 6:30 بجے</Text>
           </Card.Content>
         </Card>
 
-        {/* Map Selector Component */}
-        <MapSelector selectedMap={selectedMap} onMapChange={handleMapChange} />
-
-        {/* Map Display - Now Much Larger */}
-        <Card style={styles.mapCard}>
-          <Card.Title 
-            title="Field Map" 
-            titleStyle={styles.cardTitle}
-            subtitle={selectedMap === "NDVI" ? "Vegetation Health Index" : "Standard View"}
-            subtitleStyle={styles.cardSubtitle}
-            left={(props) => (
-              <Avatar.Icon 
-                {...props} 
-                icon="map" 
-                style={styles.cardIcon}
-                color="#EDF1D6" 
-              />
-            )}
-          />
-          <Divider />
-          <Card.Content style={styles.mapCardContent}>
-            {renderMap()}
-          </Card.Content>
-        </Card>
-
-        {/* Action Buttons */}
-        <View style={styles.actionButtonsContainer}>
-          <Button 
-            mode="contained" 
-            icon="drone" 
-            onPress={() => {}} 
-            style={styles.actionButton}
-            contentStyle={styles.buttonContent}
-            labelStyle={styles.buttonLabel}
-          >
-            Launch Drone
-          </Button>
+        {/* Menu Options */}
+        <View style={styles.buttonsGrid}>
+          <View style={styles.buttonRow}>
+            <Button
+              mode="contained"
+              icon={({size, color}) => (
+                <MaterialCommunityIcons name="map" size={28} color={color} />
+              )}
+              contentStyle={styles.buttonContent}
+              onPress={() => router.push("/map")}
+              style={styles.menuButton}
+              labelStyle={styles.buttonLabel}
+            >
+              نقشہ دیکھیں
+            </Button>
+            
+            <Button
+              mode="contained"
+              icon={({size, color}) => (
+                <MaterialCommunityIcons name="clipboard-text" size={28} color={color} />
+              )}
+              contentStyle={styles.buttonContent}
+              onPress={() => router.push("/status")}
+              style={styles.menuButton}
+              labelStyle={styles.buttonLabel}
+            >
+              حالت چیک کریں
+            </Button>
+          </View>
           
-          <Button 
-            mode="contained" 
-            icon="spray" 
-            onPress={() => {}} 
-            style={styles.actionButton}
-            contentStyle={styles.buttonContent}
-            labelStyle={styles.buttonLabel}
-          >
-            Apply Pesticides
-          </Button>
+          <View style={styles.buttonRow}>
+            <Button
+              mode="contained"
+              icon={({size, color}) => (
+                <MaterialCommunityIcons name="cog" size={28} color={color} />
+              )}
+              contentStyle={styles.buttonContent}
+              onPress={() => router.push("/actions")}
+              style={styles.menuButton}
+              labelStyle={styles.buttonLabel}
+            >
+              عمل کریں
+            </Button>
+            
+            <Button
+              mode="contained"
+              icon={({size, color}) => (
+                <MaterialCommunityIcons name="help-circle" size={28} color={color} />
+              )}
+              contentStyle={styles.buttonContent}
+              onPress={() => router.push("/help")}
+              style={styles.menuButton}
+              labelStyle={styles.buttonLabel}
+            >
+              مدد حاصل کریں
+            </Button>
+          </View>
         </View>
 
-        {/* Help Section */}
-        <Card style={styles.helpCard}>
-          <Card.Content style={styles.helpContent}>
-            <MaterialCommunityIcons name="help-circle-outline" size={28} color="#40513B" />
-            <Text style={styles.helpText}>Need help understanding the map?</Text>
-          </Card.Content>
-          <Card.Actions style={styles.helpActions}>
-            <Button 
-              mode="text" 
-              onPress={() => {}} 
-              style={{marginRight: 8}}
-              labelStyle={{color: "#609966"}}
-            >
-              View Guide
-            </Button>
-            <Button 
-              mode="text" 
-              onPress={() => {}} 
-              labelStyle={{color: "#609966"}}
-            >
-              Contact Support
-            </Button>
-          </Card.Actions>
-        </Card>
-      </ScrollView>
+        {/* Bottom Image */}
+        <View style={styles.bottomImageContainer}>
+          <Image 
+            source={require("../assets/images/farm2.jpg")} 
+            style={styles.bottomImage}
+            resizeMode="cover"
+          />
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
+  container: {
     flex: 1,
-    backgroundColor: "#EDF1D6",
+    backgroundColor: "#F5F7EA",
   },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 16,
-    paddingBottom: 30,
-  },
-  appbar: {
-    backgroundColor: "#40513B",
+  header: {
+    backgroundColor: "#2E5E3E",
+    paddingVertical: 20,
     paddingHorizontal: 16,
-    elevation: 4,
+  },
+  headerContent: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    alignItems: "center",
   },
   logo: {
     backgroundColor: "transparent",
-    marginRight: 8,
   },
-  appbarTitle: {
-    fontFamily: "MontserratBold",
-    fontSize: 20,
-    color: "#EDF1D6",
-  },
-  appbarSubtitle: {
-    fontFamily: "Montserrat",
-    fontSize: 12,
-    color: "#EDF1D6",
-    opacity: 0.8,
-  },
-  statusCard: {
-    marginBottom: 16,
-    backgroundColor: "#FFFFFF",
-    elevation: 2,
-    borderRadius: 12,
-  },
-  cardTitle: {
-    fontFamily: "MontserratBold",
-    fontSize: 18,
-    color: "#40513B",
-  },
-  cardSubtitle: {
-    fontFamily: "Montserrat",
-    fontSize: 14,
-    color: "#609966",
-  },
-  cardIcon: {
-    backgroundColor: "#609966",
-  },
-  statusContent: {
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-  },
-  statusItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 12,
-  },
-  statusText: {
-    fontFamily: "Montserrat",
-    fontSize: 15,
-    color: "#333333",
+  titleContainer: {
     marginLeft: 12,
   },
-  mapCard: {
-    marginVertical: 16,
+  title: {
+    fontFamily: "NotoNastaliqUrdu-Bold",
+    fontSize: 24,
+    color: "#FFFFFF",
+    textAlign: "right"
+  },
+  subtitle: {
+    fontFamily: "NotoNastaliqUrdu-Regular",
+    fontSize: 16,
+    color: "#E0F2C3",
+    textAlign: "right"
+  },
+  content: {
+    flex: 1,
+    padding: 16,
+  },
+  statusCard: {
+    marginBottom: 24,
+    borderRadius: 16,
+    overflow: "hidden",
+    elevation: 3,
+  },
+  statusCardContent: {
+    flexDirection: "row",
+    paddingVertical: 16,
     backgroundColor: "#FFFFFF",
-    elevation: 2,
-    borderRadius: 12,
   },
-  mapCardContent: {
-    padding: 0,
-  },
-  mapWrapper: {
-    position: "relative",
-    width: "100%",
-    height: screenWidth * 0.8, // Adjusted to be proportional to screen width
-    backgroundColor: "#F5F5F5",
-    alignItems: "center",
+  statusTextContainer: {
+    flex: 1,
+    alignItems: "flex-end",
     justifyContent: "center",
   },
-  mapImage: {
-    width: "100%",
-    height: "100%",
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
+  statusLabel: {
+    fontFamily: "NotoNastaliqUrdu-Regular",
+    fontSize: 16,
+    color: "#555555",
+    marginBottom: 8,
+    textAlign: "right"
   },
-  legendContainer: {
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-    padding: 12,
-    borderRadius: 8,
-    position: "absolute",
-    bottom: 16,
-    right: 16,
-    maxWidth: "40%",
+  statusValue: {
+    fontFamily: "NotoNastaliqUrdu-Bold",
+    fontSize: 28,
+    color: "#4CAF50",
+    textAlign: "right"
   },
-  legendTitle: {
-    fontFamily: "MontserratBold",
-    fontSize: 12,
-    color: "#40513B",
-    marginBottom: 4,
+  statusIconContainer: {
+    width: 80,
+    height: 80,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#E8F5E9",
+    borderRadius: 40,
+    marginLeft: 16,
   },
-  legendRow: {
+  lastUpdatedContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 4,
+    justifyContent: "flex-end",
+    backgroundColor: "#F5F5F5",
+    paddingVertical: 8,
   },
-  legendColor: {
-    width: 16,
-    height: 16,
-    borderRadius: 4,
-    marginRight: 8,
+  lastUpdatedText: {
+    fontFamily: "NotoNastaliqUrdu-Regular",
+    fontSize: 14,
+    color: "#666666",
+    marginRight: 6,
   },
-  legendText: {
-    fontFamily: "Montserrat",
-    fontSize: 12,
-    color: "#40513B",
+  buttonsGrid: {
+    marginBottom: 20,
   },
-  actionButtonsContainer: {
+  buttonRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 16,
   },
-  actionButton: {
+  menuButton: {
     flex: 1,
-    marginHorizontal: 4,
-    backgroundColor: "#40513B",
-    borderRadius: 8,
+    marginHorizontal: 6,
+    borderRadius: 12,
+    backgroundColor: "#4F7D4A",
+    elevation: 2,
   },
   buttonContent: {
-    height: 56,
+    height: 100,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonLabel: {
-    fontFamily: "MontserratBold",
-    fontSize: 13,
-    color: "#fff"
+    fontFamily: "NotoNastaliqUrdu-Bold",
+    fontSize: 18,
+    marginTop: 8,
+    textAlign: "center",
+    color: "#FFFFFF",
   },
-  helpCard: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    marginBottom: 16,
+  bottomImageContainer: {
+    flex: 1,
+    borderRadius: 16,
+    overflow: "hidden",
+    marginTop: 8,
   },
-  helpContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 8,
-  },
-  helpText: {
-    fontFamily: "Montserrat",
-    fontSize: 15,
-    color: "#40513B",
-    marginLeft: 12,
-  },
-  helpActions: {
-    justifyContent: "flex-end",
-    paddingTop: 0,
+  bottomImage: {
+    width: "100%",
+    height: "100%",
   }
 });
 

@@ -14,19 +14,19 @@ const MapSelector = ({
 }) => {
   const { colors } = useTheme();
 
-  // Map type options with icons and descriptions
+  // Map type options with icons and descriptions in Urdu
   const mapTypes = [
     { 
       value: "NDVI", 
-      label: "NDVI Map", 
+      label: "این ڈی وی آئی نقشہ", // Urdu label for NDVI
       icon: "image-filter-hdr", 
-      description: "Shows crop health levels" 
+      description: "فصل کی صحت کی سطحیں دکھاتا ہے" // Urdu description for NDVI
     },
     { 
       value: "Farm", 
-      label: "Regular Farm View", 
+      label: "معمولی کھیت منظر", // Urdu label for Regular Farm View
       icon: "image", 
-      description: "Normal farm image" 
+      description: "عام کھیت کی تصویر" // Urdu description for Regular Farm View
     }
   ];
 
@@ -34,7 +34,7 @@ const MapSelector = ({
     <Surface style={styles.container}>
       <View style={styles.headerContainer}>
         <MaterialCommunityIcons name="map-legend" size={24} color="#40513B" />
-        <Text style={styles.headerText}>Map Selection</Text>
+        <Text style={[styles.headerText, { writingDirection: 'rtl' }]}>نقشہ منتخب کریں</Text> {/* Urdu header text */}
       </View>
       
       <View style={styles.pickerContainer}>
@@ -62,8 +62,8 @@ const MapSelector = ({
           size={22} 
           color="#609966" 
         />
-        <Text style={styles.selectionText}>
-          {mapTypes.find(type => type.value === selectedMap)?.description || "View map data"}
+        <Text style={[styles.selectionText, { writingDirection: 'rtl' }]}>
+          {mapTypes.find(type => type.value === selectedMap)?.description || "نقشہ دیکھیں"} {/* Urdu description */}
         </Text>
       </View>
     </Surface>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   headerText: {
-    fontFamily: "MontserratBold",
+    fontFamily: "NotoNastaliqUrdu-Bold", 
     fontSize: 16,
     color: "#40513B",
     marginLeft: 8,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   picker: {
     height: 50,
     width: "100%",
-    fontFamily: "Montserrat",
+    fontFamily: "NotoNastaliqUrdu-Regular", 
   },
   selectionInfo: {
     flexDirection: "row",
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   selectionText: {
-    fontFamily: "Montserrat",
+    fontFamily: "NotoNastaliqUrdu-Regular", 
     fontSize: 14,
     color: "#609966",
     marginLeft: 8,
