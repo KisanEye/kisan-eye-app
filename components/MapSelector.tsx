@@ -1,4 +1,3 @@
-// components/MapSelector.tsx
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Surface, IconButton } from "react-native-paper";
@@ -12,20 +11,20 @@ const MapSelector = ({
   selectedMap: string, 
   onMapChange: (mapType: string) => void 
 }) => {
-  // Map type options with icons and descriptions in Urdu
+  // Map type options with icons and descriptions in English
   const mapTypes = [
     { 
       value: "NDVI", 
-      label: "این ڈی وی آئی نقشہ", 
+      label: "NDVI Map", 
       icon: "image-filter-hdr", 
-      description: "فصل کی صحت کا نقشہ", 
+      description: "Crop Health Map", 
       color: "#4CAF50" 
     },
     { 
       value: "Farm", 
-      label: "معمولی کھیت منظر", 
+      label: "Standard Field View", 
       icon: "image", 
-      description: "عام کھیت کی تصویر",
+      description: "Regular Field Image",
       color: "#5D8AA8" 
     }
   ];
@@ -33,8 +32,8 @@ const MapSelector = ({
   return (
     <Surface style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>نقشہ منتخب کریں</Text>
         <MaterialCommunityIcons name="map-legend" size={28} color="#40513B" />
+        <Text style={styles.headerText}>Select Map</Text>
       </View>
       
       <View style={styles.optionsContainer}>
@@ -65,14 +64,14 @@ const MapSelector = ({
       
       {/* Description of selected map type */}
       <View style={styles.selectionInfo}>
-        <Text style={styles.selectionText}>
-          {mapTypes.find(type => type.value === selectedMap)?.description || "نقشہ دیکھیں"}
-        </Text>
         <MaterialCommunityIcons 
           name="information-outline" 
           size={24} 
           color="#609966" 
         />
+        <Text style={styles.selectionText}>
+          {mapTypes.find(type => type.value === selectedMap)?.description || "View Map"}
+        </Text>
       </View>
     </Surface>
   );
@@ -89,15 +88,15 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-end", // Right align for RTL
+    justifyContent: "flex-start", // Left align for LTR
     marginBottom: 12,
   },
   headerText: {
-    fontFamily: "NotoNastaliqUrdu-Bold",
+    fontFamily: "Montserrat-Bold",
     fontSize: 20,
     color: "#000000",
-    marginRight: 8, // Adjusted for RTL
-    textAlign: "right",
+    marginLeft: 8, // Adjusted for LTR
+    textAlign: "left",
   },
   optionsContainer: {
     flexDirection: "row",
@@ -120,7 +119,7 @@ const styles = StyleSheet.create({
     borderColor: "#40513B",
   },
   optionLabel: {
-    fontFamily: "NotoNastaliqUrdu-Medium",
+    fontFamily: "Montserrat-Medium",
     fontSize: 16,
     color: "#40513B",
     marginTop: 8,
@@ -128,21 +127,21 @@ const styles = StyleSheet.create({
   },
   selectedText: {
     color: "#FFFFFF",
-    fontFamily: "NotoNastaliqUrdu-Bold",
+    fontFamily: "Montserrat-Bold",
   },
   selectionInfo: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-end", // Right align for RTL
+    justifyContent: "flex-start", // Left align for LTR
     marginTop: 12,
     paddingHorizontal: 4,
   },
   selectionText: {
-    fontFamily: "NotoNastaliqUrdu-Regular",
+    fontFamily: "Montserrat-Regular",
     fontSize: 16,
     color: "#609966",
-    marginRight: 8, // Adjusted for RTL
-    textAlign: "right",
+    marginLeft: 8, // Adjusted for LTR
+    textAlign: "left",
   }
 });
 

@@ -1,4 +1,3 @@
-// screens/HomeScreen.tsx
 import React, { useState } from "react";
 import { 
   View, 
@@ -46,18 +45,18 @@ const HomeScreen = () => {
             />
           </View>
           <View style={styles.legendContainer}>
-            <Text style={styles.legendTitle}>صحت کی علامت:</Text>
+            <Text style={styles.legendTitle}>Health Indicator:</Text>
             <View style={styles.legendRow}>
               <View style={[styles.legendColor, { backgroundColor: '#ff0000' }]} />
-              <Text style={styles.legendText}>خراب حالت</Text>
+              <Text style={styles.legendText}>Poor Condition</Text>
             </View>
             <View style={styles.legendRow}>
               <View style={[styles.legendColor, { backgroundColor: '#ffff00' }]} />
-              <Text style={styles.legendText}>متوسط حالت</Text>
+              <Text style={styles.legendText}>Moderate Condition</Text>
             </View>
             <View style={styles.legendRow}>
               <View style={[styles.legendColor, { backgroundColor: '#00ff00' }]} />
-              <Text style={styles.legendText}>اچھی حالت</Text>
+              <Text style={styles.legendText}>Good Condition</Text>
             </View>
           </View>
           
@@ -123,9 +122,9 @@ const HomeScreen = () => {
           backgroundColor="#FFFFFF"
         />
         <Appbar.Content 
-          title="کسان آئی" 
+          title="KisanEye" 
           titleStyle={styles.appbarTitle} 
-          subtitle="کھیتوں کی صحت مانیٹر"
+          subtitle="Field Health Monitor"
           subtitleStyle={styles.appbarSubtitle}
         />
         <BatteryStatus batteryPercentage={batteryPercentage} />
@@ -135,7 +134,7 @@ const HomeScreen = () => {
         {/* Farm Status Overview with Visual Indicators */}
         <Card style={styles.statusCard}>
           <Card.Title 
-            title="کھیت کی صحت کی حالت" 
+            title="Field Health Status" 
             titleStyle={styles.cardTitle}
             left={(props) => (
               <Avatar.Icon 
@@ -150,22 +149,22 @@ const HomeScreen = () => {
             <View style={styles.statusItem}>
               <MaterialCommunityIcons name="water" size={32} color="#609966" />
               <View style={styles.statusTextContainer}>
-                <Text style={styles.statusLabel}>نمی:</Text>
-                <Text style={styles.statusValue}>اچھی</Text>
+                <Text style={styles.statusLabel}>Moisture:</Text>
+                <Text style={styles.statusValue}>Good</Text>
               </View>
             </View>
             <View style={styles.statusItem}>
               <MaterialCommunityIcons name="white-balance-sunny" size={32} color="#609966" />
               <View style={styles.statusTextContainer}>
-                <Text style={styles.statusLabel}>سورج کی روشنی:</Text>
-                <Text style={styles.statusValue}>مناسب</Text>
+                <Text style={styles.statusLabel}>Sunlight:</Text>
+                <Text style={styles.statusValue}>Adequate</Text>
               </View>
             </View>
             <View style={styles.statusItem}>
               <MaterialCommunityIcons name="bug" size={32} color="#609966" />
               <View style={styles.statusTextContainer}>
-                <Text style={styles.statusLabel}>کیڑے کا خطرہ:</Text>
-                <Text style={styles.statusValue}>کم</Text>
+                <Text style={styles.statusLabel}>Pest Risk:</Text>
+                <Text style={styles.statusValue}>Low</Text>
               </View>
             </View>
           </Card.Content>
@@ -177,7 +176,7 @@ const HomeScreen = () => {
         {/* Map Display with Zoom Controls */}
         <Card style={styles.mapCard}>
           <Card.Title 
-            title="میدانی نقشہ" 
+            title="Field Map" 
             titleStyle={styles.cardTitle}
             left={(props) => (
               <Avatar.Icon 
@@ -190,7 +189,7 @@ const HomeScreen = () => {
           />
           <Card.Content style={styles.mapSubtitleContainer}>
             <Text style={styles.mapSubtitle}>
-              {selectedMap === "NDVI" ? "سبزیاں کی صحت کی حالت" : "معیاری نظارہ"}
+              {selectedMap === "NDVI" ? "Vegetation Health Status" : "Standard View"}
             </Text>
           </Card.Content>
           <Divider />
@@ -211,7 +210,7 @@ const HomeScreen = () => {
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonLabel}
           >
-            ڈرون روانہ کریں
+            Deploy Drone
           </Button>
           
           <Button 
@@ -224,7 +223,7 @@ const HomeScreen = () => {
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonLabel}
           >
-            کیڑے مار دوا لگائیں
+            Apply Pesticide
           </Button>
         </View>
 
@@ -232,7 +231,7 @@ const HomeScreen = () => {
         <Card style={styles.helpCard}>
           <Card.Content style={styles.helpContent}>
             <MaterialCommunityIcons name="help-circle-outline" size={36} color="#40513B" />
-            <Text style={styles.helpText}>نقشہ کو سمجھنے میں مدد چاہیے؟</Text>
+            <Text style={styles.helpText}>Need help understanding the map?</Text>
           </Card.Content>
           <Card.Actions style={styles.helpActions}>
             <Button 
@@ -242,7 +241,7 @@ const HomeScreen = () => {
               style={styles.helpButton}
               labelStyle={styles.helpButtonLabel}
             >
-              آواز سے رہنمائی
+              Voice Guidance
             </Button>
             <Button 
               mode="contained"
@@ -251,7 +250,7 @@ const HomeScreen = () => {
               style={styles.helpButton}
               labelStyle={styles.helpButtonLabel}
             >
-              سپورٹ سے رابطہ
+              Contact Support
             </Button>
           </Card.Actions>
         </Card>
@@ -285,19 +284,19 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   appbarTitle: {
-    fontFamily: "NotoNastaliqUrdu-Bold",
+    fontFamily: "Montserrat-Bold",
     fontSize: 24, // Increased font size
     color: "#EDF1D6",
-    textAlign: "right",
+    textAlign: "left",
     marginVertical: 4,
     lineHeight: 32,
   },
   appbarSubtitle: {
-    fontFamily: "NotoNastaliqUrdu-Regular",
+    fontFamily: "Montserrat-Regular",
     fontSize: 14, // Increased font size
     color: "#EDF1D6",
     opacity: 0.8,
-    textAlign: "right",
+    textAlign: "left",
   },
   statusCard: {
     marginBottom: 16,
@@ -306,10 +305,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   cardTitle: {
-    fontFamily: "NotoNastaliqUrdu-Bold",
+    fontFamily: "Montserrat-Bold",
     fontSize: 20, // Increased font size
     color: "#000000", // Changed to black for better readability
-    textAlign: "right",
+    textAlign: "left",
     marginVertical: 4,
     lineHeight: 32,
   },
@@ -319,10 +318,10 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   mapSubtitle: {
-    fontFamily: "NotoNastaliqUrdu-Regular",
+    fontFamily: "Montserrat-Regular",
     fontSize: 16,
     color: "#609966",
-    textAlign: "right",
+    textAlign: "left",
   },
   cardIcon: {
     backgroundColor: "#609966",
@@ -334,23 +333,23 @@ const styles = StyleSheet.create({
   statusItem: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-end", // Right align for RTL
+    justifyContent: "flex-start", // Left align for LTR
     marginBottom: 16,
     paddingVertical: 4,
   },
   statusTextContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginRight: 12, // Adjusted for RTL
+    marginLeft: 12, // Adjusted for LTR
   },
   statusLabel: {
-    fontFamily: "NotoNastaliqUrdu-Bold",
+    fontFamily: "Montserrat-SemiBold",
     fontSize: 18, // Increased font size
     color: "#000000", // Changed to black
     marginRight: 8,
   },
   statusValue: {
-    fontFamily: "NotoNastaliqUrdu-Regular",
+    fontFamily: "Montserrat-Regular",
     fontSize: 18, // Increased font size
     color: "#000000", // Changed to black
   },
@@ -390,37 +389,37 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     position: "absolute",
     bottom: 16,
-    right: 16,
+    left: 16, // Adjusted for LTR
     maxWidth: "50%", // Increased width for text
   },
   legendTitle: {
-    fontFamily: "NotoNastaliqUrdu-Bold",
+    fontFamily: "Montserrat-Bold",
     fontSize: 16, // Increased font size
     color: "#000000", // Changed to black
     marginBottom: 8,
-    textAlign: "right",
+    textAlign: "left",
   },
   legendRow: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-end", // Right align for RTL
+    justifyContent: "flex-start", // Left align for LTR
     marginTop: 4,
   },
   legendColor: {
     width: 20, // Slightly larger
     height: 20, // Slightly larger
     borderRadius: 4,
-    marginLeft: 8, // Adjusted for RTL
+    marginRight: 8, // Adjusted for LTR
   },
   legendText: {
-    fontFamily: "NotoNastaliqUrdu-Regular",
-    fontSize: 14, // Increased font size
+    fontFamily: "Montserrat-Regular",
+    fontSize: 12.5, // Increased font size
     color: "#000000", // Changed to black
-    textAlign: "right",
+    textAlign: "left",
   },
   zoomControlsContainer: {
     position: "absolute",
-    left: 16,
+    right: 16, // Adjusted for LTR
     bottom: 16,
     flexDirection: "column",
     gap: 8,
@@ -448,11 +447,11 @@ const styles = StyleSheet.create({
   },
   buttonContent: {
     height: 70, // Taller buttons
-    flexDirection: "row-reverse", // Icon on the left for RTL
+    flexDirection: "row", // Icon on the left for LTR
   },
   buttonLabel: {
-    fontFamily: "NotoNastaliqUrdu-Bold",
-    fontSize: 16, // Increased font size
+    fontFamily: "Montserrat-Bold",
+    fontSize: 13.5, // Increased font size
     color: "#fff",
     textAlign: "center",
     paddingHorizontal: 8,
@@ -466,16 +465,16 @@ const styles = StyleSheet.create({
   helpContent: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-end", // Right align for RTL
+    justifyContent: "flex-start", // Left align for LTR
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
   helpText: {
-    fontFamily: "NotoNastaliqUrdu-SemiBold",
-    fontSize: 20, // Increased font size
+    fontFamily: "Montserrat-SemiBold",
+    fontSize: 16, // Increased font size
     color: "#000000", // Changed to black
-    marginRight: 12, // Adjusted for RTL
-    textAlign: "right",
+    marginLeft: 12, // Adjusted for LTR
+    textAlign: "left",
   },
   helpActions: {
     justifyContent: "space-around",
@@ -489,8 +488,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   helpButtonLabel: {
-    fontFamily: "NotoNastaliqUrdu-Bold",
-    fontSize: 14,
+    fontFamily: "Montserrat-Bold",
+    fontSize: 12,
     color: "#FFFFFF",
   }
 });
