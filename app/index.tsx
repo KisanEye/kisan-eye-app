@@ -1,18 +1,19 @@
 // screens/HomeScreen.tsx
 import React, { useState } from "react";
-import { 
-  View, 
-  StyleSheet, 
-  Image, 
-  ScrollView, 
-  SafeAreaView, 
+import {
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  SafeAreaView,
   Dimensions,
-  TouchableOpacity 
+  TouchableOpacity
 } from "react-native";
 import { Text, Appbar, Button, Card, Avatar, Divider } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import BatteryStatus from "../components/BatteryStatus";
 import MapSelector from "../components/MapSelector";
+import { Stack, router } from "expo-router"; // Import Stack from expo-router
 
 // Get screen dimensions for better map sizing
 const screenWidth = Dimensions.get('window').width;
@@ -39,8 +40,8 @@ const HomeScreen = () => {
       return (
         <View style={styles.mapWrapper}>
           <View style={[styles.mapImageContainer, { transform: [{ scale: zoomLevel }] }]}>
-            <Image 
-              source={require("../assets/images/ndvi.jpg")} 
+            <Image
+              source={require("../assets/images/ndvi.jpg")}
               style={styles.mapImage}
               resizeMode="contain"
             />
@@ -60,18 +61,18 @@ const HomeScreen = () => {
               <Text style={styles.legendText}>اچھی حالت</Text>
             </View>
           </View>
-          
+
           {/* Zoom Controls */}
           <View style={styles.zoomControlsContainer}>
-            <TouchableOpacity 
-              style={styles.zoomButton} 
+            <TouchableOpacity
+              style={styles.zoomButton}
               onPress={handleZoomIn}
               activeOpacity={0.7}
             >
               <MaterialCommunityIcons name="plus" size={28} color="#FFFFFF" />
             </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.zoomButton} 
+            <TouchableOpacity
+              style={styles.zoomButton}
               onPress={handleZoomOut}
               activeOpacity={0.7}
             >
@@ -84,24 +85,24 @@ const HomeScreen = () => {
     return (
       <View style={styles.mapWrapper}>
         <View style={[styles.mapImageContainer, { transform: [{ scale: zoomLevel }] }]}>
-          <Image 
-            source={require("../assets/images/farm.jpg")} 
-            style={styles.mapImage} 
+          <Image
+            source={require("../assets/images/farm.jpg")}
+            style={styles.mapImage}
             resizeMode="contain"
           />
         </View>
-        
+
         {/* Zoom Controls for Regular Map Too */}
         <View style={styles.zoomControlsContainer}>
-          <TouchableOpacity 
-            style={styles.zoomButton} 
+          <TouchableOpacity
+            style={styles.zoomButton}
             onPress={handleZoomIn}
             activeOpacity={0.7}
           >
             <MaterialCommunityIcons name="plus" size={28} color="#FFFFFF" />
           </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.zoomButton} 
+          <TouchableOpacity
+            style={styles.zoomButton}
             onPress={handleZoomOut}
             activeOpacity={0.7}
           >
@@ -116,15 +117,15 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.safeArea}>
       {/* Fixed App Header */}
       <Appbar.Header style={styles.appbar}>
-        <Avatar.Image 
-          size={40} 
-          source={require("../assets/images/logo.png")} 
+        <Avatar.Image
+          size={40}
+          source={require("../assets/images/logo.png")}
           style={styles.logo}
           backgroundColor="#FFFFFF"
         />
-        <Appbar.Content 
-          title="کسان آئی" 
-          titleStyle={styles.appbarTitle} 
+        <Appbar.Content
+          title="کسان آئی"
+          titleStyle={styles.appbarTitle}
           subtitle="کھیتوں کی صحت مانیٹر"
           subtitleStyle={styles.appbarSubtitle}
         />
@@ -134,15 +135,15 @@ const HomeScreen = () => {
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
         {/* Farm Status Overview with Visual Indicators */}
         <Card style={styles.statusCard}>
-          <Card.Title 
-            title="کھیت کی صحت کی حالت" 
+          <Card.Title
+            title="کھیت کی صحت کی حالت"
             titleStyle={styles.cardTitle}
             left={(props) => (
-              <Avatar.Icon 
-                {...props} 
-                icon="leaf" 
+              <Avatar.Icon
+                {...props}
+                icon="leaf"
                 style={styles.cardIcon}
-                color="#EDF1D6" 
+                color="#EDF1D6"
               />
             )}
           />
@@ -176,15 +177,15 @@ const HomeScreen = () => {
 
         {/* Map Display with Zoom Controls */}
         <Card style={styles.mapCard}>
-          <Card.Title 
-            title="میدانی نقشہ" 
+          <Card.Title
+            title="میدانی نقشہ"
             titleStyle={styles.cardTitle}
             left={(props) => (
-              <Avatar.Icon 
-                {...props} 
-                icon="map" 
+              <Avatar.Icon
+                {...props}
+                icon="map"
                 style={styles.cardIcon}
-                color="#EDF1D6" 
+                color="#EDF1D6"
               />
             )}
           />
@@ -201,25 +202,38 @@ const HomeScreen = () => {
 
         {/* Action Buttons with Icons */}
         <View style={styles.actionButtonsContainer}>
-          <Button 
-            mode="contained" 
+          <Button
+            mode="contained"
             icon={({ size, color }) => (
               <MaterialCommunityIcons name="drone" size={28} color={color} />
             )}
-            onPress={() => {}} 
+            onPress={() => { }}
             style={styles.actionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonLabel}
           >
             ڈرون روانہ کریں
           </Button>
-          
-          <Button 
-            mode="contained" 
+
+          <Button
+            mode="contained"
+            icon={({ size, color }) => (
+              <MaterialCommunityIcons name="map" size={28} color={color} />
+            )}
+            onPress={() => router.push('./map')}
+            style={styles.actionButton}
+            contentStyle={styles.buttonContent}
+            labelStyle={styles.buttonLabel}
+          >
+            map damn
+          </Button>
+
+          <Button
+            mode="contained"
             icon={({ size, color }) => (
               <MaterialCommunityIcons name="spray" size={28} color={color} />
-            )} 
-            onPress={() => {}} 
+            )}
+            onPress={() => { }}
             style={styles.actionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonLabel}
@@ -235,19 +249,19 @@ const HomeScreen = () => {
             <Text style={styles.helpText}>نقشہ کو سمجھنے میں مدد چاہیے؟</Text>
           </Card.Content>
           <Card.Actions style={styles.helpActions}>
-            <Button 
+            <Button
               mode="contained"
-              icon="play-circle-outline" 
-              onPress={() => {}} 
+              icon="play-circle-outline"
+              onPress={() => { }}
               style={styles.helpButton}
               labelStyle={styles.helpButtonLabel}
             >
               آواز سے رہنمائی
             </Button>
-            <Button 
+            <Button
               mode="contained"
-              icon="phone" 
-              onPress={() => {}} 
+              icon="phone"
+              onPress={() => { }}
               style={styles.helpButton}
               labelStyle={styles.helpButtonLabel}
             >
@@ -256,7 +270,7 @@ const HomeScreen = () => {
           </Card.Actions>
         </Card>
       </ScrollView>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 
